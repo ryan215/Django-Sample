@@ -1,0 +1,96 @@
+<div class="calendar">
+    <div class="row">
+        <div class="col-xs-3">
+            <tabset>
+                <tab heading="Month" select="changeView('month', calendar)"></tab>
+                <tab heading="Week" select="changeView('agendaWeek', calendar)"></tab>
+                <tab heading="Day" select="changeView('agendaDay', calendar)"></tab>
+            </tabset>
+        </div>
+        <div class="col-xs-3 col-xs-offset-6">
+            <button ng-if="user_id == profile_id" type="button" class="btn btn-primary pull-right"
+                    ng-click="openEventModal()">Create
+            </button>
+        </div>
+        <div class="col-xs-12">
+            <div class="calendar" calendar="calendar" ui-calendar="calendarConfig" ng-model="eventSources"></div>
+        </div>
+    </div>
+</div>
+
+<script type="text/ng-template" id="eventModalTemplate.html">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="close()">&times;</button>
+        <h4>Event</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label for="eventTitle">Title</label>
+            <input type="text" class="form-control" id="eventTitle" ng-model="$parent.event.title"
+                   ng-click="eventTitleClick()" ng-blur="eventTitleBlur()">
+        </div>
+        <div class="row">
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label for="eventStart">Start</label>
+
+                    <div class="input-group">
+                        <input id="eventStart" type="text" class="form-control" datepicker-popup="MM/dd/yyyy"
+                               ng-model="$parent.event.start" min
+                               is-open="$parent.fromDatePickerOpened" date-disabled="disabled(date, mode)"
+                               show-button-bar="false"/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" ng-click="openFromDatePicker($event)">
+                                    <i class="glyphicon glyphicon-calendar"></i>
+                                </button>
+                            </span>
+                    </div>
+                </div>
+                <div collapse="$parent.event.allDay">
+                    <div ng-model="$parent.event.start" ng-change="changed()">
+                        <timepicker></timepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label for="eventEnd">End</label>
+
+                    <div class="input-group">
+                        <input id="eventEnd" type="text" class="form-control" datepicker-popup="MM/dd/yyyy"
+                               ng-model="$parent.event.end"
+                               is-open="$parent.untilDatePickerOpened" date-disabled="disabled(date, mode)"
+                               show-button-bar="false"/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" ng-click="openUntilDatePicker($event)">
+                                    <i class="glyphicon glyphicon-calendar"></i>
+                                </button>
+                            </span>
+                    </div>
+                </div>
+                <div collapse="$parent.event.allDay">
+                    <div ng-model="$parent.event.end" ng-change="changed()">
+                        <timepicker></timepicker>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="$parent.event.allDay">
+                All-Day
+            </label>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="ok()">Save</button>
+        <button class="btn btn-danger" ng-if="$parent.event.id" ng-click="delete()">Delete</button>
+    </div>
+</script>
+
+
+
+
+
+
+ 

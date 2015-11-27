@@ -1,0 +1,125 @@
+<div ng-switch-when="professionals">
+    <form class="form-horizontal" name="professionalForm">
+    <div class="row">
+        <div class="col-xs-12 col-md-6 col-md-offset-3">
+            <div class="page-header">
+                <h2 class="entry-title">professional information</h2>
+            </div>
+            <div class="progress">
+              <div class="progress-bar progress-bar-striped active"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 25%">
+                25%
+              </div>
+            </div>
+                 <div class="form-group">
+                    <label for="phone" class="col-sm-2 control-label">
+                        Phone:
+                    </label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="phone" id="phone" placeholder="phone"
+                               ng-model="pro.phone">
+                    </div>
+                </div>
+                <!-- <div class="form-group">
+                    <label for="twitter" class="col-sm-2 control-label">
+                        Twitter
+                    </label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="twitter" id="twitter" placeholder="twitter"
+                               ng-model="pro.twitter">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="facebook" class="col-sm-2 control-label">
+                        Facebook
+                    </label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="facebook" id="facebook" placeholder="facebook"
+                               ng-model="pro.facebook">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="instagram" class="col-sm-2 control-label">
+                        Instagram
+                    </label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="instagram" id="instagram" placeholder="instagram"
+                               ng-model="pro.instagram">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="youtube" class="col-sm-2 control-label">
+                        Youtube
+                    </label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="youtube" id="youtube"
+                               placeholder="youtube"
+                               ng-model="pro.youtube">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="linkedin" class="col-sm-2 control-label">
+                        Linkedin:
+                    </label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="linkedin" id="linkedin"
+                               placeholder="linkedin"
+                               ng-model="pro.linkedin">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="plus" class="col-sm-2 control-label">
+                        Plus:
+                    </label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="plus" id="plus" placeholder="plus"
+                               ng-model="pro.plus">
+                    </div>
+                </div> -->
+                <div class="form-group">
+                    <label for="address" class="col-sm-2 control-label">
+                        Specialties:
+                    </label>
+
+                     <div class="col-sm-10">
+                        <tags-input ng-model="tags" class="tags-input" on-tag-removed="onDeleteTag($tag)" on-tag-added="onTagAdd($tag)" display-property="name" add-from-autocomplete-only="true">
+                        <auto-complete source="loadSpecialty($query)" min-length="0"></auto-complete>
+                        </tags-input>
+                        <br>
+                        <label for="address" class="col-sm-2 control-label">
+                            Tags:
+                        </label>
+                        <div ng-repeat="tag in temTags" ng-click="addTagBank(tag)" class="tag tag-blue tag-click ng-scope ng-binding">
+                            {{tag.name}}
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <button ng-show="urlTier == null" type="button" class="btn btn-primary col-xs-offset-1" ng-click="setCurrentStep('choice')">
+            Back
+        </button>
+        <button ng-show="urlTier == null" type="button" class="btn btn-primary col-xs-offset-9"
+                ng-click="setCurrentStepForm('experience', professionalForm.$valid)">
+            Next
+        </button>
+
+
+        <button ng-show="urlTier != null" type="button" class="btn btn-primary col-xs-offset-1" ng-click="setCurrentStep('registration')">
+            Back
+        </button>
+        <button ng-show="urlTier != null" type="button" class="btn btn-primary col-xs-offset-9"
+                ng-click="setCurrentStepForm('experience', professionalForm.$valid)">
+            Next
+        </button>
+    </div>
+     </form>
+</div>

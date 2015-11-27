@@ -1,0 +1,131 @@
+<div class="modal-body clearfix">
+    <div class="img-container">
+        <span class="fa fa-chevron-left fa-3x" data-ng-show="hasPrev()" data-ng-click="prev()"></span>
+        <span class="helper"></span>
+        <img data-ng-src={{serverProtocal}}://{{serverURL}}/{{source(selectedImg)}}>
+        <span class="fa fa-chevron-right fa-3x" data-ng-show="hasNext()" data-ng-click="next()"></span>
+    </div>
+    <!--Disabling The Side Bar for now SUPER BUGGY LOL-->
+    <div class="side-bar">
+        <div class="media">
+            <a ui-sref="profile.view({view: entry.shared_entry.user})">
+                <img class="media-object pull-left"
+                ng-src="{{serverProtocal}}://{{serverURL}}/{{selectedImg.profile_img}}"
+                style="width: 32px; height: 32px;">
+            </a>
+            <div class="media-body">
+                <div class="posted-by">
+                    <a ui-sref="profile.view({view: selectedImg.user})">
+                        {{selectedImg.first_name}} {{selectedImg.last_name}}
+                    </a>
+                </div>
+                <div class="timestamp">
+                    shared - {{selectedImg.created | date : 'mediumDate' }}
+                    {{selectedImg.created | date: 'shortTime' }}
+                </div>
+            </div>
+        </div>
+        <div ng-bind-html="getTrustedHtml(selectedImg.text, false)"></div>
+        <div ng-repeat="tag in selectedImg.tags"
+            class="tag tag-blue tag-click" ng-if="false">
+            {{tag.name}}
+        </div>
+        <div class="post-social pull-right" ng-if="false">
+            <span class="dropdown push" title="Social Sharing">
+            <a class="dropdown-toggle" href>
+                <i class="fa fa-share-alt fa-lg"></i>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a href ng-click="socialShareEntry(entry, 'facebook')">
+                        <i class="fa fa-facebook"></i> facebook
+                    </a>
+                    <a href ng-click="socialShareEntry(entry, 'google')">
+                        <i class="fa fa-google-plus"></i> google +
+                    </a>
+                    <a href ng-click="socialShareEntry(entry, 'twitter')">
+                        <i class="fa fa-twitter"></i> twitter
+                    </a>
+                </li>
+            </ul>
+            </span>
+            <span ng-click="likeEntry(selectedImg)" title="Number of likes" class="push">
+            {{ selectedImg.likes }}
+            <span style="color: rgba(125,135,144,0.2)">|</span>
+            <a href ng-if="!selectedImg.user_likes" title="Like">
+                <i class="fa fa-thumbs-o-up fa-lg"></i>
+            </a>
+            <a href ng-if="selectedImg.user_likes" title="Unlike">
+                <i class="fa fa-thumbs-o-down fa-lg"></i>
+            </a>
+            </span>
+            <span ng-click="entryShare(selectedImg)" title="Number of shares">
+            <span ng-if="selectedImg.type == 'shared'">{{ selectedImg.shared_entry.shares }}</span>
+            <span ng-if="selectedImg.type != 'shared'">{{ selectedImg.shares }}</span>
+            <span style="color: rgba(125,135,144,0.2)">|</span>
+            <a href title="share">
+                <i class="fa fa-retweet fa-lg"></i>
+            </a>
+            </span>
+        </div>
+        <div class="row" style="padding: 8px 0;" ng-if="commentNext">
+            <div class="col-xs-12">
+                <a href ng-click="getComments()">
+                    <i>Show older comments</i>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="list-group">
+                    <div ng-repeat="comment in selectedImg.comments" class="list-group-item">
+                        <div class="media">
+                            <button class="close" ng-if="comment.user == user_id"
+                            ng-click="deleteComment($index, comment, entry)">
+                            <i class="fa fa-times"></i>&ZeroWidthSpace;
+                            </button>
+                            <a ui-sref="profile.view({view: comment.user})">
+                                <img class="media-object pull-left"
+                                ng-src="{{serverProtocal}}://{{serverURL}}/{{comment.img}}"
+                                style="width: 36px; height: 36px;" ui-sref="profile.view({view: comment.user})">
+                            </a>
+                            <div class="media-body">
+                                <div class="col-xs-12 col-sm-9">
+                                    <a style="color: #999999; font-size: 12px;"><a ui-sref="profile.view({view: comment.user})"
+                                        style="color: #95abbf">{{comment.first_name}}
+                                    {{comment.last_name}}</a> {{comment.text}}</a>
+                                    <div style="color: #c2c1c1; font-size: 11px;">
+                                        {{ comment.created | date:'mediumDate'}}
+                                        at {{comment.created | date: 'shortTime'}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-group-item" ng-if="false">
+                        <div class="media">
+                            <img class="media-object pull-left"
+                            ng-src="{{serverProtocal}}://{{serverURL}}/{{usrImg}}"
+                            style="width: 36px; height: 36px;">
+                            <div class="media-body">
+                                <label class="sr-only" for="entryComment">entry comment</label>
+                                <input id="entryComment"
+                                ng-model="selectedImg.commentInput"
+                                placeholder="Encourage, motivate, inspire..."
+                                ng-enter="submitComment(selectedImg)"
+                                class="form-control col-xs-12 col-sm-12"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="lightbox-tiles">
+    <span data-ng-repeat="i in images" data-ng-click="displayImage(i)">
+        <span class="thumb-scroll">
+            <img data-ng-src="{{serverProtocal}}://{{serverURL}}/{{source(i)}}">
+        </span>
+    </span>
+</div>

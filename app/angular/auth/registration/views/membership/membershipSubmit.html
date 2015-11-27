@@ -1,0 +1,26 @@
+<div ng-switch-when="membershipSubmit">
+    <div class="row">
+        <div class="col-xs-12 col-md-6 col-md-offset-3">
+            <div class="page-header">
+                <h2 class="entry-title">checking for errors</h2>
+            </div>
+            <!--
+            <div class="progress">
+              <div class="progress-bar progress-bar-striped active"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                100%
+              </div>
+            </div>
+            -->
+            <div class="alert alert-danger" ng-repeat="(error, msg) in message">
+                {{msg[0]}}
+            </div>
+            <h3>Thank you for joining Team EverFit!!</h3>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <button ng-show="{{user.tier == 1}}"type="button" class="btn btn-primary col-xs-offset-1" ng-click="setCurrentStep('tags')">Back</button>
+        <button ng-show="{{user.tier == 2 || user.tier == 3 || user.tier == 4 || user.tier == 5}}"type="button" class="btn btn-primary col-xs-offset-1" ng-click="setCurrentStep('payment')">Back</button>
+        <button click-once type="submit" class="btn btn-primary col-xs-offset-9" ng-click="preSubmit()" ng-model='submitButton' >Submit</button>
+    </div>
+</div>

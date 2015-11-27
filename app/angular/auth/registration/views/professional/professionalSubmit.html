@@ -1,0 +1,31 @@
+<div ng-switch-when="membershipSubmitPro">
+    <div class="row">
+        <div class="col-xs-12 col-md-6 col-md-offset-3">
+            <div class="page-header">
+                <h2 class="entry-title">checking for errors</h2>
+            </div>
+            <div class="progress">
+              <div class="progress-bar progress-bar-striped active"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                100%
+              </div>
+            </div>
+            <div class="alert alert-danger" ng-repeat="(error, msg) in message">
+                {{msg[0]}}
+            </div>
+            <div ng-if="pro.profession == 'Nutritionist' || pro.profession == 'Trainer' || pro.profession == 'Instructor'">
+                <p>Thank you for joining Team EverFit. You can now add content and photos to your profile! Your account will become searchable when activated by the EverFit Admin Team with in 24hrs. </p>
+                
+                <p><em>*In order to assure our clients that our professionals are certified, we do double check that your certifications are current. Thank you for your compliance.</em></p>
+            </div>
+            <div ng-if="pro.profession == 'Promoter'">
+                <p>Thank you for you interest in become an EverFit Promoter! To ensure you make the most out of your Free membership we just want to make sure your a perfect fit! As a promoter, you are part of the face of EverFit, and because of that we require you to have a combined social media following of at least 1000 followers. If that is not the case but you know you could be a valuable asset to team EverFit, please email us at <a href="mailto:info@liveeverfit.com">info@liveeverfit.com</a> and give us a brief description about why you want to join the EverFit team </p>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <button ng-show="pro.profession == 'Nutritionist' || pro.profession == 'Trainer' || pro.profession == 'Instructor'" type="button" class="btn btn-primary col-xs-offset-1" ng-click="setCurrentStep('certifications')">Back</button>
+        <button ng-show="pro.profession == 'Promoter'" type="button" class="btn btn-primary col-xs-offset-1" ng-click="setCurrentStep('experience')">Back</button>
+        <button type="submit" class="btn btn-primary col-xs-offset-9" ng-click="preProSubmit()">Submit</button>
+    </div>
+</div>

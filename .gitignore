@@ -1,0 +1,8 @@
+*.sqlite3
+*.pyc
+*.log
+*.ini
+.Trash-1000
+.DS_Store
+*.iml
+app/angular/media/

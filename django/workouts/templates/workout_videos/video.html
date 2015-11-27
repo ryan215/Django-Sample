@@ -1,0 +1,135 @@
+<div>
+    <div class="row">
+        <div class="col-xs-12">
+        <div class="workout-video-shadow">
+            <video width="640" height="480" class="video-js vjs-default-skin vjs-big-play-centered vjs-lef" controls preload="auto"
+                   poster="/media/{{ video.img }}"
+                   data-setup='{"techOrder": ["flash", "html5"]}'>
+                <source src='rtmp://206.225.86.237:1935/vod/_definst_/mp4:{{ video.url_video }}' type='rtmp/mp4'/>
+                <source src='http://206.225.86.237:1935/vod/content/{{ video.url_video }}/playlist.m3u8'
+                        type='video/mp4'/>
+            </video>
+        </div>
+            <header class="page-header">
+                <h1>
+                    {{ video.title }}
+                    <small class="pull-right">Views: <span class="blue">{{ video.views }}</span></small>
+                </h1>
+            </header>
+            <p class="clearfix">
+                {% if request.user in video.likes_user.all %}
+                    <button id="likeButton" type="button" class="btn btn-primary" data-val="unlike">unlike <span
+                            class="glyphicon glyphicon-thumbs-down"></span></button>
+                {% else %}
+                    <button id="likeButton" type="button" class="btn btn-primary" data-val="like">like <span
+                            class="glyphicon glyphicon-thumbs-up"></span></button>
+                {% endif %}
+                <big class="pull-right">Likes: <span id="likeCount" class="blue">{{ video.likes }}</span></big>
+            </p>
+            <div class="lead"><span class="blue">Description: </span>{{ video.description }}</div>
+            <div class="lead"><span class="blue">Tags: </span>
+                {% for video_tags in video.tags.names %}
+                    <a href="#workoutsHeader" class="tag tag-click">{{ video_tags }}</a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% if comments %}
+    <section id="comments" class="panel panel-info">
+        <div class="panel-heading">
+            Comments
+        </div>
+        {% for object in comments reversed %}
+            <ol id="comment-list" class="list-group">
+                <li id="comment-1-by-nicolas-gonzalez"
+                    class="comment vcard list-group-item box1 authenticated-comment staff-comment superuser-comment">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-3">
+                            <img src="/media/{{ object.user.img }}" class="gravatar photo img-thumbnail">
+                        </div>
+                        <div class="col-xs-12 col-sm-9">
+                            <span class="fn"><a href="/profile/view?id={{ object.user.id }}">{{ object.user.first_name }}{{ object.user.last_name }}</a></span>
+                            on
+                            <abbr class="comment-published">
+                                {{ object.pub_date }}
+                            </abbr>
+                            <p>{{ object.comment }}</p>
+                        </div>
+                    </div>
+                </li>
+            </ol>
+        {% endfor %}
+    </section>
+{% else %}
+    <p>
+        No comments yet.
+    </p>
+{% endif %}
+
+
+
+<form action="/workouts/videocomment/" method="post" id="comment-form" class="well form-horizontal">{% csrf_token %}
+    <fieldset>
+        <legend>Post your comment</legend>
+        <input id="id_video_id" name="video_id" type="hidden" value="{{ video.pk }}">
+        <div>
+            <div class="form-group">
+                <label for="id_comment" class="col-lg-2 control-label">Comment</label>
+                <div class="col-lg-10">
+                    <textarea id="id_comment" class="form-control" rows="10" name="comment"></textarea>
+
+                </div>
+            </div>
+        </div>
+        <p class="auth">
+            Comment as <strong>{{ request.user.first_name }} {{ request.user.last_name }}</strong>
+        </p>
+        <p class="submit">
+            <input type="submit" name="submit" class="submit-post btn btn-primary submit-preview" value="Post">
+        </p>
+    </fieldset>
+</form>
+<script src="{{ STATIC_URL }}js/jquery.js"></script>
+<script type="text/javascript" src="/static/js/bowser.js"></script>
+<script type="text/javascript" src="/static/js/video.js"></script>
+<script>
+    videojs.options.flash.swf = "/static/js/video-js.swf"
+</script>
+
+<script>
+    $(document).ready(function () {
+        $("#unlike").click(function () {
+            $.ajax({url: "/workouts/unlike/", data: { pk: {{video.pk}} }, type: "GET", dataType: "html", success: function (result) {
+                $("#unlike1").html(result);
+                $("#unlike2").html('<button id="like" type="button" class="btn btn-primary">like</button>');
+            }});
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        var $video = $('.video-js'),
+                $likeCount = $("#likeCount"),
+                $likeButton = $("#likeButton");
+        $likeButton.click(function () {
+            var bool = $likeButton.data('val') == "like";
+            $.ajax({
+                url: bool ? "/workouts/like/" : "/workouts/unlike",
+                data: { pk: {{video.pk}} },
+                type: "GET",
+                dataType: "html",
+                success: function (result) {
+                    $likeButton.data('val', bool ? 'unlike' : 'like');
+                    $likeButton.html(bool ? 'unlike <span class="glyphicon glyphicon-thumbs-down"></span>' : 'like <span class="glyphicon glyphicon-thumbs-up"></span>');
+                    $likeCount.html(result);
+                }
+            });
+        });
+        $video.height($video.width() * 0.75);
+        $(window).resize(function () {
+            $video.height($video.width() * 0.75);
+        });
+    });
+</script>

@@ -1,0 +1,19 @@
+<div class="fanaticsList hidden-xs" ng-controller="fanaticsCtrl">
+    <input type="checkbox" ng-model="fanaticsCollapsed"/>
+    <label data-expanded="–" data-collapsed="+">find fanatics</label>
+
+    <div class="fanaticsList-content">
+        <input placeholder="Search..."
+               ng-model="searchText"
+               typeahead="obj.full_name for obj in fanaticTypeahead($viewValue)"
+               typeahead-on-select="onSelect($item)"/>
+
+        <div class="list-fan">
+            <a ui-sref="profile.view({view: fanatic.id})"
+               ng-repeat="fanatic in fanaticList">
+                <img ng-src="{{serverProtocal}}://{{serverURL}}/media/{{fanatic.img}}"/>
+                {{fanatic.full_name}}
+            </a>
+        </div>
+    </div>
+</div>

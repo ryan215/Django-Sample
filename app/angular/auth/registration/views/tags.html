@@ -1,0 +1,80 @@
+<div ng-switch-when="tags">
+    <div class="row">
+        <div class="col-xs-12 col-md-6 col-md-offset-3">
+            <div class="page-header">
+                <h2 class="entry-title">user fitness interests</h2>
+            </div>
+            <div class="progress">
+              <div class="progress-bar progress-bar-striped active"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 50%">
+              50%
+              </div>
+            </div>
+
+            <div class="form-group">
+                <label for="address" class="col-sm-2 control-label">
+                    Interests:
+                </label>
+
+                 <div class="col-sm-10 form-space"
+                 popover-placement="left" popover="Are you interested in other types of fitness not listed below?  Please let us know and we will work toward expanding our categories." popover-trigger="mouseenter">
+                    <tags-input ng-model="tags" class="tags-input" add-from-autocomplete-only="true" on-tag-removed="onDeleteTag($tag)" on-tag-added="onTagAdd($tag)" display-property="name">
+                    <auto-complete source="loadSpecialty($query)" min-length="1"></auto-complete>
+                    </tags-input>
+                    <br>
+                    <label for="address" class="col-sm-2 control-label">
+                        Tags:
+                    </label>
+                    <div ng-repeat="tag in temTags" ng-click="addTagBank(tag)" class="tag tag-blue tag-click ng-scope ng-binding">
+                        {{tag.name}}
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+    <br>
+
+    <div class="row">
+        <button ng-show="user.tier == 1 && urlTier == null" type="button" class="btn btn-primary col-xs-offset-1"
+                ng-click="setCurrentStep('user')">
+            Back
+        </button>
+        <button ng-show="user.tier == 1 && urlTier == null" type="submit" class="btn btn-primary col-xs-offset-9"
+                ng-click="setCurrentStep('membershipSubmit')">
+            Next
+        </button>
+
+
+        <button ng-show="user.tier >= 2 && user.tier <= 5  && urlTier == null" type="button" class="btn btn-primary col-xs-offset-1"
+                ng-click="setCurrentStep('membership')">
+            Back
+        </button>
+        <button ng-show="user.tier >= 2 && user.tier <= 5  && urlTier == null" type="submit" class="btn btn-primary col-xs-offset-9"
+                ng-click="setCurrentStep('payment')">
+            Next
+        </button>
+
+
+
+        <button ng-show="user.tier == 1 && urlTier != null" type="button" class="btn btn-primary col-xs-offset-1"
+                ng-click="setCurrentStep('registration')">
+            Back
+        </button>
+        <button ng-show="user.tier == 1 && urlTier != null" type="submit" class="btn btn-primary col-xs-offset-9"
+                ng-click="setCurrentStep('membershipSubmit')">
+            Next
+        </button>
+
+
+        <button ng-show="user.tier >= 2 && user.tier <= 5 && urlTier != null" type="button" class="btn btn-primary col-xs-offset-1"
+                ng-click="setCurrentStep('registration')">
+            Back
+        </button>
+        <button ng-show="user.tier >= 2 && user.tier <= 5 && urlTier != null" type="submit" class="btn btn-primary col-xs-offset-9"
+                ng-click="setCurrentStep('payment')">
+            Next
+        </button>
+
+
+    </div>
+</div>

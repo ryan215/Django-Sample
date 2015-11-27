@@ -1,0 +1,54 @@
+<div id="messagesBg"></div>
+<div id="messagesPage" ng-controller="messagesController">
+    <div class="container">
+        <div class="row-fluid">
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a ui-sref="messages.view({view: 'new'})" ui-sref-active="active">
+                                <i class="fa fa-plus fa-lg ever-blue" style="line-height: 1em;"></i>&ThinSpace;<i
+                                    class="fa fa-envelope fa-lg blue"></i>
+                                <br>
+                                new
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-3">
+                <ul class="nav nav-pills nav-stacked">
+                    <li ui-sref-active="active">
+                        <a ui-sref="messages.view({view: 'inbox'})">
+                            <span class="fa fa-inbox blue"></span>
+                            &nbsp; inbox
+                            <span class="badge pull-right">{{unread}}</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="messages.view({view: 'sent'})">
+                            <span class="fa fa-fighter-jet"></span>
+                            &nbsp; sent
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="messages.view({view: 'deleted'})">
+                            <span class="fa fa-trash-o"></span>
+                            &nbsp; deleted
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div ng-switch="view" class="col-xs-12 col-sm-9">
+                <div ng-switch-when="new">
+                    <div ng-include src="'messages/views/newMessage.html'"></div>
+                </div>
+                <div ng-switch-default>
+                    <div ng-include src="'messages/views/messageList.html'"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

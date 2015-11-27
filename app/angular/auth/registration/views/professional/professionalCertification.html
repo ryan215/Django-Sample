@@ -1,0 +1,70 @@
+<div ng-switch-when="certifications">
+    <form class="form-horizontal" name="certificationsForm">
+    <div class="row">
+        <div class="col-xs-12 col-md-6 col-md-offset-3">
+            <div class="page-header">
+                <h2 class="entry-title">certifications</h2>
+            </div>
+            <div class="progress">
+              <div class="progress-bar progress-bar-striped active"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 75%">
+                75%
+              </div>
+            </div>
+                <div class="form-group">
+                    <label for="certificationOneName" class="col-sm-2 control-label">
+                        Name
+                    </label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="certificationOneName"
+                               placeholder="Certifications Name" ng-model="pro.certification_name1"
+                               ng-required="ifPromoter()">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="certificationNumberName" class="col-sm-2 control-label">
+                        Number
+                    </label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="certificationOneNumber"
+                               placeholder="Certifications Number" ng-model="pro.certification_number1"
+                               ng-required="ifPromoter()">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="certificationTwoName" class="col-sm-2 control-label">
+                        Name
+                    </label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="certificationTwoName"
+                               placeholder="Certifications Name" ng-model="pro.certification_name2">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="certificationTwoNumber" class="col-sm-2 control-label">
+                        Number
+                    </label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="certificationTwoNumber"
+                               placeholder="Certifications Number" ng-model="pro.certification_number2">
+                    </div>
+                </div>
+        </div>
+    </div>
+    <br>
+
+    <div class="row">
+        <button type="button" class="btn btn-primary col-xs-offset-1"
+                ng-click="setCurrentStep('experience')">
+            Back
+        </button>
+        <button type="submit" class="btn btn-primary col-xs-offset-9"
+                ng-click="setCurrentStepForm('membershipSubmitPro', certificationsForm.$valid)">
+            Next
+        </button>
+    </div>
+     </form>
+</div>

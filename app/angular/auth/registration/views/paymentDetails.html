@@ -1,0 +1,94 @@
+<div ng-switch-when="payment">
+    <form class="form-horizontal" name="paymentForm"> 
+    <div class="row">
+        <div class="col-xs-12 col-md-6 col-md-offset-3">
+            <div class="page-header">
+                <h2 class="entry-title">payment information</h2>
+            </div>    
+                <alert ng-repeat="(error, msg) in message">{{msg}}</alert>             
+                <label for="nameName">
+                    CARD NAME
+                </label>
+                <input type="text" class="form-control" name="name" id="name" placeholder="" ng-model="creditcard.name" required>
+                  <p></p>
+                <label for="numberName">
+                    CARD NUMBER
+                </label>
+                <input type="text" class="form-control" name="number" id="number" placeholder="Valid Card Number" ng-model="creditcard.number" required>
+                  <p></p>
+                <label for="cvcName">
+                    CVV CODE
+                </label>
+                <input type="text" class="form-control" name="cvc" id="cvc" placeholder="cvc" ng-model="creditcard.cvc" required>
+                  <p></p>
+                <label for="exp_monthName">
+                    EXPIRY DATE
+                </label>
+                <select ng-model="creditcard.exp_month" id="gender" type="integer" class="form-control" placeholder="Month">
+                    <option value=""></option>
+                    <option value="1">1 - Jan</option>
+                    <option value="2">2 - Feb</option>
+                    <option value="3">3 - Mar</option>
+                    <option value="4">4 - Apr</option>
+                    <option value="5">5 - May</option>
+                    <option value="6">6 - Jun</option>
+                    <option value="7">7 - Jul</option>
+                    <option value="8">8 - Aug</option>
+                    <option value="9">9 - Sep</option>
+                    <option value="10">10 - Oct</option>
+                    <option value="11">11 - Nov</option>
+                    <option value="12">12 - Dec</option>
+                </select>
+                  <p></p>
+                <label for="exp_yearName">
+                </label>
+                <select ng-model="creditcard.exp_year" id="gender" type="integer" class="form-control" placeholder="Year">
+                    <option value=""></option>
+                    <option value="2014">2014</option>
+                    <option value="2015">2015</option>
+                    <option value="2016">2016</option>
+                    <option value="2017">2017</option>
+                    <option value="2018">2018</option>
+                    <option value="2019">2019</option>
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
+                </select>
+                  <p></p>
+                <label for="Address">
+                    ADDRESS
+                </label>
+                <input id="address" type="text" ng-model="tempAddressPay.formatted_address"
+                       placeholder="Primary Address"
+                       typeahead="address for address in getLocation($viewValue)"
+                       typeahead-loading="loadingLocations"
+                       ng-change="setAddressPay()" typeahead-on-select="setAddressPay()" class="form-control"
+                       required>
+
+                <input type="text" class="form-control" name="firstName" id="firstName"
+                       placeholder="P.O. Box, Apartment, Suite, Unit, Building, Floor, Etc."
+                       ng-change="setAddressPay()"
+                       ng-model="tempAddressPay.street_line2">
+                  <p></p>
+
+
+                <hr></hr>
+        </div>
+    </div>
+    <br>
+
+    <div class="row">
+        <button ng-show="user.tier == 6 || user.tier == 7" type="button" class="btn btn-primary col-xs-offset-1" ng-click="setCurrentStep('certifications')">Back</button>
+        <button ng-show="{{user.tier == 2 || user.tier == 3 || user.tier == 4 || user.tier == 5}}" type="button" class="btn btn-primary col-xs-offset-1" ng-click="setCurrentStep('tags')">Back</button>
+
+        <button ng-show="user.tier == 6 || user.tier == 7" type="submit" class="btn btn-primary col-xs-offset-9"
+                ng-click="paymentCheck('membershipSubmitPro', paymentForm.$valid)">Next
+        </button>
+        <button ng-show="{{user.tier == 2 || user.tier == 3 || user.tier == 4 || user.tier == 5}}" type="submit" class="btn btn-primary col-xs-offset-9"
+                ng-click="paymentCheck('membershipSubmit', paymentForm.$valid)">Next
+        </button>
+    </div>
+    </form> 
+</div>

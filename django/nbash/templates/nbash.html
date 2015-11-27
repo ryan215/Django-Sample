@@ -1,0 +1,139 @@
+<html>
+<head>
+    <style>
+        body {
+            font-family: Open Sans;
+            font-weight: lighter;
+        }
+
+        .online {
+            color: darkgreen;
+        }
+
+        #text_message {
+            width: 600px;
+            height: 30px;
+            padding: 5px;
+            font-size: 18px;
+            line-height: 25px;
+            background: black;
+            border: 0px;
+            color: #00FC35;
+        }
+
+        #text_message:focus {
+            outline: none;
+        }
+
+        #billboard {
+            padding: 8px;
+            width: 600px;
+            height: 400px;
+            background-color: black;
+            color: #00FC35;
+            overflow-y: auto;
+            box-sizing: border-box;
+        }
+    </style>
+    <script language="Javascript">
+        var ws, wsBashes, timeout = null;
+        {% if nbash_url %}
+            connect();
+        {% endif %}
+        connectBashes()
+
+
+        function connectBashes() {
+            try {
+                wsBashes = new WebSocket('{{ nbashes_url }}?access_token=mytoken');
+                wsBashes.onmessage = ws_onmessage_bashes;
+                timeout = null;
+
+            } catch (err) {
+                console.log(err + "\nReconnecting ...");
+                timeout = setTimeout(connectBashes, 10000);
+            }
+        }
+
+        function connect() {
+            try {
+                ws = new WebSocket('{{ nbash_url }}?access_token=mytoken');
+                ws.onopen = ws_onopen;
+                ws.onmessage = ws_onmessage;
+                ws.onerror = ws_onerror;
+                ws.onclose = ws_onclose;
+                timeout = null;
+
+            } catch (err) {
+                console.log(err + "\nReconnecting ...");
+                timeout = setTimeout(connect, 10000);
+            }
+        }
+
+        function ws_onopen() {
+            console.log("connected to " + ws.url);
+        }
+
+        function ws_onmessage(e) {
+            var bb = document.getElementById('billboard');
+            var html = bb.innerHTML;
+            bb.innerHTML = html + '<br/>' + e.data.replace(/\n/g, '<br />');
+            bb.scrollTop = bb.scrollHeight;
+        }
+
+        function ws_onmessage_bashes(e) {
+            var bb = document.getElementById('billboard');
+            if (bb) {
+                var html = bb.innerHTML;
+                bb.innerHTML = html + '<br/>' + e.data.replace(/\n/g, '<br />');
+                bb.scrollTop = bb.scrollHeight;
+            }
+            console.log(e.data)
+
+            var message = e.data.split(" ");
+            if (message[1] == "Subscribed") {
+                document.getElementById(message[0]).className = "online";
+            }
+            else if (message[1] == "Unsubscribed") {
+                document.getElementById(message[0]).className = "";
+            }
+
+        }
+
+        function ws_onerror(err) {
+            console.warn("connection broken");
+            if (!timeout) {
+                timeout = setTimeout(connect, 1000);
+            }
+        }
+
+        function ws_onclose(e) {
+            console.log("connection closed");
+            if (!timeout) {
+                timeout = setTimeout(connect, 1000);
+            }
+        }
+
+        function send_message() {
+            var value = document.getElementById('text_message').value;
+            ws.send(value);
+            document.getElementById('text_message').value = ">";
+        }
+    </script>
+</head>
+<body>
+<h1>nBash</h1>
+<ul id="list">
+    {% for bash in bashes %}
+        <li><a id={{ bash.mac_id }} href="?macId={{ bash.mac_id }}"
+               class="{% if bash.online %}online{% endif %}">{{ bash.mac_id }}</a></li>
+    {% endfor %}
+</ul>
+{% if nbash_url %}
+    <div id="billboard"></div>
+    <form onsubmit="send_message(); return false;">
+        <input type="text" id="text_message" value=">"/>
+    </form>
+{% endif %}
+</body>
+</html>

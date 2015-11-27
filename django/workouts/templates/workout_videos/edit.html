@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+{% if request.user.is_superuser %}
+
+{% for video in videos %}
+<span class="thumbnail">
+    <h2><a href="/workouts/video-edit/{{video.id}}/">{{video.title}}</a></h2>
+</span>
+{% endfor %}
+
+{% else %}
+<h1>Get Out</h1>
+{% endif %}
+
+
+{% endblock %}

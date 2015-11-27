@@ -1,0 +1,67 @@
+<div id="homeBg">
+    <div style="position: fixed; bottom: 120px; right: 234px; z-index: 10000;"
+         step-text="See who’s online, and Live Chat with professionals and fanatics alike!"
+         step-index="10"
+         step-placement="left"></div>
+</div>
+<div id="homePage">
+    <div ng-controller="homeController">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                <!--
+                    <button class="btn btn-primary btn-tour" ng-click="startTour()">take tour
+                        <div class="tour_ring"></div>
+                    </button>-->
+                    <div style="position:absolute; top: -10px;; left: 165px; z-index: 10000;"
+                         step-text="Welcome! Let’s take a quick run through to show you all of the awesome features on EVERFIT!"
+                         step-index="1"
+                         step-placement="right"></div>
+                    <div ng-controller="BannerCtrl" class="main-banners">
+                        <carousel interval="3000" disable-ng-animate>
+                            <slide ng-repeat="slide in slides" active="slide.active">
+                                <a href="{{ slide.url }}"><img ng-src="{{slide.image}}" style="margin:auto;"></a>
+                            </slide>
+                        </carousel>
+                    </div>
+                    <!--
+                    <div class="homePageButtons xs-up">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <a ui-sref-active="active"
+                                   ui-sref="fitness-professionals">
+                                    <img src="home/img/find-a-pro.png"/>
+                                </a>
+                            </div>
+                            <div class="col-xs-4">
+                                <a ui-sref-active="active"
+                                   ui-sref="workouts">
+                                    <img src="home/img/workouts.png"/>
+                                </a>
+                            </div>
+                            <div class="col-xs-4">
+                                <a href="http://store.liveeverfit.com">
+                                    <img src="home/img/the-shop.png"/>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    -->
+                    <!--<tabset justified="true" type="pills">
+                        <tab ng-repeat="tab in tabs" heading="{{tab.title}}" select="feedFilter(tab.filter)"></tab>
+                    </tabset>-->
+                    <!-- /.homePageButtons -->
+                    <div step-text="Use the status bar to create a post. You can include text, photos, and video. You can also write an awesome blog, and let other fanatics know an event you have coming up!"
+                         step-index="4"
+                         step-placement="top"
+                         ng-if="feed.show" entry-feed ng-model="$parent.feed"></div>
+                </div>
+            </div>
+        </div>
+        <div ng-include="'/fanatics/index.html'"></div>
+    </div>
+</div>
+
+
+
+

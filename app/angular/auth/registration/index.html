@@ -1,0 +1,128 @@
+<div id="registrationBg"></div>
+    <div id="registration" ng-controller="registrationController">
+        <div ng-switch="getCurrentStep()">
+
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-3 col-xs-12"></div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-10">
+                    <div class="login-logo">
+                        <img src="common/img/container-logo.png">
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-3 col-xs-12"></div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-3 col-xs-12"></div>
+                    <div class="col-lg-4 col-md-4 col-sm-3 col-xs-12">
+                        <div class="login-format" ng-switch-when="registration">
+                            <h2 id="workoutsHeader" class="ef-header">
+                                registration
+                            </h2>
+                            <!--
+                            <div class="progress">
+                              <div class="progress-bar progress-bar-striped active"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                                <span class="sr-only">0% Complete</span>
+                              </div>
+                            </div>
+                            -->
+                            <div>
+                              <p>We don't like spam either so we promise to never share your personal information.</p>
+                            </div>
+                            <form class="form-horizontal" name="registrationForm">
+                                <!--<h2 class="entry-title">basic information</h2>
+                                
+                                <label for="gender" class="control-label">
+                                    <h4><i class="fa fa-users"></i> Gender</h4>
+                                </label>
+
+                                <select ng-model="user.gender" id="gender" type="text" class="form-control">
+                                    <option value="">None</option>
+                                    <option value="M">Male</option>
+                                    <option value="F">Female</option>
+                                </select>-->
+                                <label for="firstName">
+                                    <h4></h4>
+                                </label>
+                                <input type="text" class="form-control" id="firstName"
+                                       placeholder="First Name" ng-model="user.first_name"
+                                       required>
+                                <label for="lastName">
+                                    <h4></h4>
+                                </label>
+                                <input type="text" class="form-control" id="lastName"
+                                       placeholder="Last Name"
+                                       ng-model="user.last_name"
+                                       required>
+                                <label for="email">
+                                    <h4></h4>
+                                </label>
+                                <input type="email" class="form-control" id="email"
+                                       placeholder="Email"
+                                       ng-model="user.email"
+                                       required>
+                                <label for="password">
+                                    <h4></h4>
+                                </label>
+                                <input type="password" class="form-control" id="password"
+                                       placeholder="Password"
+                                       ng-model="user.password"
+                                       required>
+                                <label for="password2">
+                                    <h4></h4>
+                                </label>
+                                <input type="password" class="form-control" id="password2"
+                                       placeholder="Confirm Password"
+                                       ng-model="user.password2"
+                                       required>
+                                
+                                <label for="address">
+                                    <h4></h4>
+                                </label>
+                                <input autocomplete="off" id="address" type="text" ng-model="tempAddress.formatted_address"
+                                       placeholder="Zipcode"
+                                       typeahead="address for address in getLocation($viewValue)"
+                                       typeahead-loading="loadingLocations"
+                                       ng-change="setAddress()" typeahead-on-select="setAddress()" class="form-control"
+                                       required>
+                                <label style="margin-top:10px;">
+                                  <input type="checkbox" value="terms" 
+                                  ng-model="value" name="group-one" id="terms" />
+                                  I accept the <a style="color:#fff;text-decoration:underline;" href="http://app.liveeverfit.com/#/terms">terms and conditions</a>
+                                </label>
+                                <!--
+                                <button type="submit" class="btn btn-primary pull-right down"
+                                        ng-click="setCurrentStepFormPar('membershipSubmit', registrationForm.$valid)" ng-disabled="value==false">
+                                        Next
+                                </button>-->
+        
+        <button click-once type="submit" class="btn btn-primary col-xs-offset-9" ng-click="preSubmit()" ng-model='submitButton' ng-disabled="value==false" >Submit</button>
+                            </form>
+                        </div>
+                    </div>
+            <!--end registration-->
+            <div ng-include src="'auth/registration/views/choice.html'"></div>
+            <!--end choice-->
+            <div ng-include src="'auth/registration/views/user.html'"></div>
+            <!--end user-->
+            <!--
+            <div ng-include src="'auth/registration/views/tags.html'"></div>
+            end tags-->
+            <div ng-include src="'auth/registration/views/membership/membershipUpgrade.html'"></div>
+            <!--end membership-->
+            <div ng-include src="'auth/registration/views/professional/professional.html'"></div>
+            <!--end professionals-->
+            <div ng-include src="'auth/registration/views/professional/professionalExperience.html'"></div>
+            <!--end experience-->
+            <div ng-include src="'auth/registration/views/professional/professionalCertification.html'"></div>
+            <!--end certifications-->
+            <div ng-include src="'auth/registration/views/membership/membershipSubmit.html'"></div>
+            <!--end membershipSubmit-->
+            <div ng-include src="'auth/registration/views/professional/professionalSubmit.html'"></div>
+            <!--end membershipSubmit-->
+            <div ng-include src="'auth/registration/views/paymentDetails.html'"></div>
+            <!--end payment-->
+            </div>
+        </div>
+    </div>

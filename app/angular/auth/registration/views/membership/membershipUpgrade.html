@@ -1,0 +1,35 @@
+<div ng-switch-when="membership">
+    <div class="row">
+        <div class="col-xs-12 col-md-6 col-md-offset-3">
+            <div class="page-header">
+                <h2 class="entry-title">user membership</h2>
+            </div>
+            <div class="row">
+                <div class="col-sm-3" style="text-align: center;">
+                    <button type="button" class="btn btn-primary" ng-click="membership('tags', 2)">Tier 2
+                    </button>
+                </div>
+                <div class="col-sm-3" style="text-align: center;">
+                    <button type="button" class="btn btn-primary" ng-click="membership('tags', 3)">Tier 3
+                    </button>
+                </div>
+                <div class="col-sm-3" style="text-align: center;">
+                    <button type="button" class="btn btn-primary" ng-click="membership('tags', 4)">Tier 4
+                    </button>
+                </div>
+                <div class="col-sm-3" style="text-align: center;">
+                    <button type="button" class="btn btn-primary" ng-click="membership('tags', 5)">Tier 5
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <div class="row">
+        <button type="button" class="btn btn-primary col-xs-offset-1"
+                ng-click="setCurrentStep('user')">
+            Back
+        </button>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+<div ng-switch-when="membershipSubmitPro">
+    <div class="row">
+        <div class="col-xs-12 col-md-6 col-md-offset-3">
+            <div class="page-header">
+                <h2 class="entry-title">submit your application</h2>
+            </div>
+            <div class="alert alert-danger" ng-repeat="(error, msg) in message">
+                {{msg[0]}}
+            </div>
+            <div ng-if="!message">
+                <div ng-show="pro.profession == 'Nutritionist' || pro.profession == 'Trainer' || pro.profession == 'Instructor'">
+                    Welcome to Team EverFit! Your Profile will be added to the EverFit Map of Pros within the next 24 hours!  We double check all of our professional's certifications to assure the general EverFit User that all Professionals on the Search Map are Certified and up-to-date.  We'll send you a quick notification to let you know when you're live! Seize The Year!
+                </div>
+                <div ng-show="pro.profession == 'Promoter'">
+                    Welcome to Team EverFit! As a promoter, you are now part of the face of EverFit and we couldn't be more excited! Please allow 24 hours before the Promoter Add-On is added to your account, we'll shoot a notification once the process is complete! Seize The Year!
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <button ng-show="pro.profession == 'Nutritionist' || pro.profession == 'Trainer' || pro.profession == 'Instructor'" type="button" class="btn btn-primary col-xs-offset-1" ng-click="setCurrentStep('certifications')">Back</button>
+        <button ng-show="pro.profession == 'Promoter'" type="button" class="btn btn-primary col-xs-offset-1" ng-click="setCurrentStep('experience')">Back</button>
+        <button type="submit" class="btn btn-primary col-xs-offset-9" ng-click="preProSubmit()">Submit</button>
+    </div>
+</div>

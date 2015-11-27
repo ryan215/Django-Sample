@@ -1,0 +1,83 @@
+<div class="row">
+    <div ng-class="{'col-xs-12': !detail, 'col-xs-5': detail}">
+        <div class="list-group">
+            <a ng-repeat="msg in list"
+               ui-sref-active="active"
+               ui-sref="messages.view.detail({index: $index})"
+               class="list-group-item">
+                <button ng-show="view != 'deleted'" class="close" ng-click="deleteMessage($index, msg)">&times;</button>
+                <div class="media">
+                    <img ng-if="view == 'sent'"
+                         class="media-object pull-left"
+                         ng-src="{{serverProtocal}}://{{serverURL}}/media/{{msg.recipient.img}}"
+                         style="width: 64px; height: 64px;">
+                    <img ng-if="view == 'inbox'"
+                         class="media-object pull-left"
+                         ng-src="{{serverProtocal}}://{{serverURL}}/media/{{msg.sender.img}}"
+                         style="width: 64px; height: 64px;">
+                    <div class="media-body">
+                        <div class="col-xs-12 col-sm-9">
+                            <div ng-if="view == 'sent'"><b>{{msg.recipient.first_name}} {{msg.recipient.last_name}}</b></div>
+                            <span class="badge" ng-if="view == 'inbox' && !msg.read_at">New</span>
+                            <div ng-if="view == 'inbox'"><b>{{msg.sender.first_name}} {{msg.sender.last_name}}</b></div>
+                            <div ng-if="view == 'deleted'"><b>Sender: {{msg.sender.first_name}} {{msg.sender.last_name}}</b></div>
+                            <div ng-if="view == 'deleted'"><b>Recipient: {{msg.recipient.first_name}} {{msg.recipient.last_name}}</b></div>
+                            <div>{{msg.subject}}</div>
+                            <!--<div>{{msg.body}}</div>-->
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <pagination ng-if="totalItems >= 10" total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"></pagination>
+    </div>
+    <div ng-if="detail" class="col-xs-7">
+        <div class="media">
+            <img ng-if="view == 'sent'"
+                 class="media-object pull-left"
+                 ng-src="{{serverProtocal}}://{{serverURL}}/media/{{detail.recipient.img}}"
+                 style="width: 64px; height: 64px;">
+            <img ng-if="view == 'inbox'"
+                 class="media-object pull-left"
+                 ng-src="{{serverProtocal}}://{{serverURL}}/media/{{detail.sender.img}}"
+                 style="width: 64px; height: 64px;">
+
+            <div class="media-body" style="padding-top: 24px;">
+                <div ng-if="view == 'sent'"><b>{{detail.recipient.first_name}} {{detail.recipient.last_name}}</b></div>
+                <div ng-if="view == 'inbox'"><b>{{detail.sender.first_name}} {{detail.sender.last_name}}</b></div>
+                <div ng-if="view == 'deleted'"><b>Sender: {{detail.sender.first_name}} {{detail.sender.last_name}}</b></div>
+                <div ng-if="view == 'deleted'"><b>Recipient: {{detail.recipient.first_name}} {{detail.recipient.last_name}}</b></div>
+                <div style="color: #c6c7c8;">{{detail.subject}}</div>
+            </div>
+        </div>
+        <div class="pull-right" style="color: #c6c7c8; font-size: 11px;">
+            {{detail.sent_at | date:'short'}}
+        </div>
+        <span class="clearfix"></span>
+        <p>
+            {{detail.body}}
+        </p>
+        <button ng-if="view == 'inbox'"
+                class="btn btn-sm btn-primary pull-right"
+                ui-sref="messages.view.reply({view: 'new', subject: 'detail.subject', recipient: detail.sender.id})">
+            reply
+        </button>
+    </div>
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
